@@ -43,16 +43,29 @@ app.get('/email/new',(req,res)=>{
 })
 
 app.post('/email',async(req,res)=>{
-    const newEmail = await Email(req.body.email)
+    const newEmail = await Email(req.body)
     newEmail.save()
-    res.send(newEmail)
-    // res.redirect('/email')
+    // res.send(newEmail)
+    res.redirect('/email')
 })
 
 app.get('/email/:id', async(req,res)=>{
     const {id} = req.params;
     const email = await Email.findById(id);
     res.render('email/show',{email})
+})
+
+app.get('/email/:id/edit',async(req,res)=>{
+    const {id} = req.params;
+    const email = await Email.findById(id);
+    res.render('email/edit',{email})
+})
+
+app.put('/email/:id',async(req,res)=>{
+    const {id}= req.params;
+    const email = await Email.findByIdAndUpdate(id,{...req.body})
+    email.save()
+    res.redirect(`/email/${email._id}`)
 })
 
 app.delete('/email/:id',async(req,res)=>{
