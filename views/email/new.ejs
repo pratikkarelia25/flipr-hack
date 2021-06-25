@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Email</title>
+</head>
+
+<body>
+    <h1>New Email</h1>
+    <form action="/email" method="POST">
+        <div>
+            <label for="to">To:</label>
+            <input type="text" name="to" id="to" placeholder="To">
+        </div>
+        <div>
+            <label for="cc">CC:</label>
+            <input type="text" id="cc" name="cc" placeholder="cc">
+        </div>
+        <div>
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" placeholder="Subject">
+        </div>
+        <label for="body">Body:</label>
+        <textarea name="body" id="body" cols="30" rows="10" placeholder="Body"></textarea>
+        <br>
+        <!-- <input type="date" name="date" id="date"> -->
+        <button>Send</button>
+    </form>
+</body>
+
+</html>
