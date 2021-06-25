@@ -11,7 +11,7 @@
     <a href="/email/new">New Mail</a>
     <ul>
         <% for( let email of emails ) { %>
-            <li><a href="/email/<%= email._id%>"><%= email._id %></a></li>
+            <li><a href="/email/<%= email._id%>"><%= email.subject %></a></li>
         <% } %>
     </ul>
 </body>
