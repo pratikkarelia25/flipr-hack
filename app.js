@@ -1,6 +1,7 @@
 //Imports
 const express = require('express');
 const app = express();
+const path = require('path')
 const port = 3000;
 
 
@@ -12,7 +13,7 @@ app.use('/img',express.static(__dirname + 'public/img'));
 
 
 //Display ejs Files
-app.set('views', './views');
+app.set('views', path.join(__dirname,'views'));
 app.set('view engine', 'ejs');
 app.get('/',(req,res) => {
     res.render('login');
