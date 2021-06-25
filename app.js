@@ -1,23 +1,31 @@
 //Imports
 const express = require('express');
+const expresslayout = require('express-ejs-layouts');
+const mongoose = require('mongoose');
+
+
+//DB config
+const db = require('./config/keys').MongoURI;
+
+//Connect to Mongo
+mongoose.connect(db,{useNewUrlParser: true})
+.then(() => console.log('MongoDB Connected'))
+.catch(err => console.log(err));
+
+
+
+
+
 const app = express();
-const path = require('path')
 const port = 3000;
 
-
-// Accessing all files
-app.use(express.static('public'));
-app.use('/css',express.static(__dirname + 'public/css'));
-app.use('/js',express.static(__dirname + 'public/js'));
-app.use('/img',express.static(__dirname + 'public/img'));
+//EJS
+app.use(expresslayout);
+app.set('view engine','ejs');
 
 
-//Display ejs Files
-app.set('views', path.join(__dirname,'views'));
-app.set('view engine', 'ejs');
-app.get('/',(req,res) => {
-    res.render('login');
-})
+app.use('/', require('./routes/initial'));
+app.use('/user', require('./routes/user'));
 
 //Listen to port 3000
 app.listen(port,() => console.info(`Listening on port ${port}`));
