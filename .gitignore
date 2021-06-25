@@ -1,2 +1,3 @@
 /node_modules
 /bootstrap-5.0.2-dist
+.env
