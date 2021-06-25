@@ -16,6 +16,9 @@ app.use('/img',express.static(__dirname + 'public/img'));
 //EJS
 app.use(expresslayout);
 app.set('view engine','ejs');
+app.use(express.urlencoded({extended: false}));
+
+//routes
 app.use('/', require('./routes/initial'));
 app.use('/user', require('./routes/user'));
 
