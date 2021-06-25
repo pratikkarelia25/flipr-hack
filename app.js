@@ -2,13 +2,15 @@
 const express = require('express');
 const app = express();
 const path = require('path')
+require('dotenv').config()
 const {MongoClient} = require('mongodb')
 const methodOveride = require('method-override')
 const port = 3000;
 const mongoose = require('mongoose');
 const Email = require('./model/mail');
 const { urlencoded } = require('express');
-const url = 'mongodb+srv://pratik-karelia:8huN7ndSZzm3jLn@cluster0.hoqty.mongodb.net/Email?retryWrites=true&w=majority' || 'mongodb://localhost:27017/Email';
+const dbUrl = process.env.dB_URL
+const url =  dbUrl || 'mongodb://localhost:27017/Email';
 
 mongoose.connect(url, {
     useNewUrlParser: true, 
