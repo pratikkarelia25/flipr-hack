@@ -12,7 +12,7 @@
         <li>To - <%= email.to %> </li>
         <li>Cc - <%= email.cc %> </li>
         <li>Subject - <%= email.subject %> </li>
-        <li>Date - <%= email.schedule %> </li>
+        <li>Schedule - <%= email.schedule %> </li>
         <li>Body - <%= email.body %> </li>
     </ul>
     <form action="/email/<%= email._id %>?_method=DELETE" method="POST">
