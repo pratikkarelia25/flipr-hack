@@ -4,6 +4,7 @@ const expresslayout = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const app = express();
 const port = 3000;
+require('dotenv').config();
 
 // Accessing all files
 app.use(express.static('public'));
@@ -23,20 +24,10 @@ app.use('/', require('./routes/initial'));
 app.use('/user', require('./routes/user'));
 
 //DB config
-const db = require('./config/keys').MongoURI;
+const dbUrl = process.env.dB_URL
+const url =  dbUrl || 'mongodb://localhost:27017/Email';
 
-//Connect to Mongo
-mongoose.connect(db,{useNewUrlParser: true})
-.then(() => console.log('MongoDB Connected'))
-.catch(err => console.log(err));
-
-
-// ######################    EMAIL     #######################################
-const path = require('path')
-const methodOveride = require('method-override')
-const Email = require('./model/mail');
-const { urlencoded } = require('express');
-mongoose.connect('mongodb://localhost:27017/Email', {
+mongoose.connect(url, {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
     useCreateIndex:true
@@ -44,8 +35,15 @@ mongoose.connect('mongodb://localhost:27017/Email', {
 const db = mongoose.connection;
 db.on("error", console.error.bind(console,"connection error"));
 db.once("open",()=>{
-    console.log("Database Connected")
-})
+    console.log("Database Connected")});
+
+
+// ######################    EMAIL     #######################################
+const path = require('path')
+const methodOveride = require('method-override')
+const Email = require('./model/mail');
+const { urlencoded } = require('express');
+
 
 app.use(express.urlencoded({extended:true}))
 app.use(methodOveride('_method'))
@@ -80,6 +78,6 @@ app.delete('/email/:id',async(req,res)=>{
 })
 
 //Listen to port 3000
-app.listen(port,() => {
-    console.log(`Listening on port ${port}`)
-});
+app.listen(port ,() => {
+    console.log(`Listening to port ${port}`);
+})

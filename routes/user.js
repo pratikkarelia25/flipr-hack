@@ -24,7 +24,13 @@ router.post('/signup', (req,res) => {
         errors.push({msg: 'Your password should be atleast 6 characters'})
     }
     if(errors.length >0){
-        res.render('signup',{})
+        res.render('signup',{
+            errors,
+      name,
+      email,
+      password,
+      password2
+        })
     }
     else{
         res.send(pass);
