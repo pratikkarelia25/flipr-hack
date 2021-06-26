@@ -2,7 +2,7 @@
   "name": "flipr-hack",
   "version": "1.0.0",
   "description": "Flipr 9.0 Hack Project",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"

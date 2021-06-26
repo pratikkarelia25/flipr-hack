@@ -1,12 +1,41 @@
-//Imports
+//Imports & initialisation
 const express = require('express');
+const expresslayout = require('express-ejs-layouts');
+const mongoose = require('mongoose');
 const app = express();
+const port = 3000;
+
+// Accessing all files
+app.use(express.static('public'));
+app.use('/css',express.static(__dirname + 'public/css'));
+app.use('/js',express.static(__dirname + 'public/js'));
+app.use('/img',express.static(__dirname + 'public/img'));
+
+// ######################    LOGIN     #######################################
+
+//EJS
+app.use(expresslayout);
+app.set('view engine','ejs');
+app.use(express.urlencoded({extended: false}));
+
+//routes
+app.use('/', require('./routes/initial'));
+app.use('/user', require('./routes/user'));
+
+//DB config
+const db = require('./config/keys').MongoURI;
+
+//Connect to Mongo
+mongoose.connect(db,{useNewUrlParser: true})
+.then(() => console.log('MongoDB Connected'))
+.catch(err => console.log(err));
+
+
+// ######################    EMAIL     #######################################
 const path = require('path')
 require('dotenv').config()
 const {MongoClient} = require('mongodb')
 const methodOveride = require('method-override')
-const port = 3000;
-const mongoose = require('mongoose');
 const Email = require('./model/mail');
 const { urlencoded } = require('express');
 const dbUrl = process.env.dB_URL
@@ -22,21 +51,10 @@ db.on("error", console.error.bind(console,"connection error"));
 db.once("open",()=>{
     console.log("Database Connected")
 })
-// Accessing all files
-app.use(express.static('public'));
-app.use('/css',express.static(__dirname + 'public/css'));
-app.use('/js',express.static(__dirname + 'public/js'));
-app.use('/img',express.static(__dirname + 'public/img'));
+
 app.use(express.urlencoded({extended:true}))
 app.use(methodOveride('_method'))
 
-//Display ejs Files
-app.set('views', path.join(__dirname,'views'));
-app.set('view engine', 'ejs');
-
-app.get('/',(req,res) => {
-    res.render('login');
-})
 
 app.get('/email',async(req,res)=>{
     const emails = await Email.find({})
