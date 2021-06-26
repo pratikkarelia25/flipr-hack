@@ -22,7 +22,13 @@
         </div>
         <label for="body">Body:</label>
         <input type="text" name="body" id="body" placeholder="body" value="<%= email.body %>" height="200px">
-        <input type="date" name="date" id="date">
+        <br>
+        <label for="schedule">Select the Schedule</label>
+        <select name="schedule" id="schedule">
+            <option value="Repeatative">Repeatative</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Monthly">Monthly</option>
+        </select>
         <br>
         <button>Submit</button>
     </form>
