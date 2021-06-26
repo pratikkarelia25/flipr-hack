@@ -1,17 +1,18 @@
 import React from 'react'
-
+import { Nav,NavbarContainer,NavLogo } from './NavbarElements';
 const Navbar = () => {
     return (
        <>
        <Nav>
           <NavbarContainer>
-              <NavLogo>Mailficient</NavLogo>
+              <NavLogo to='/'>Mailficient</NavLogo>
+              
           </NavbarContainer>
 
 
        </Nav>
        </>
-    )
-}
+    );
+};
 
 export default Navbar;
