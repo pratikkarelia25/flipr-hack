@@ -7,6 +7,9 @@ const flash = require('connect-flash');
 const session = require('express-session');
 
 const app = express();
+
+
+
 const port = 3000;
 require('dotenv').config();
 
@@ -19,25 +22,53 @@ app.use('/img',express.static(__dirname + 'public/img'));
 
 
 // ######################    LOGIN     #######################################
+
 // Passport Config
 require('./model/passport')(passport);
+  // Passport middleware
+  app.use(passport.initialize());
+  app.use(passport.session());
 //EJS
 app.use(expresslayout);
 app.set('view engine','ejs');
 app.use(express.urlencoded({extended: false}));
 
-// Express session
+// Auth middleware that checks if the user is logged in
+function isLoggedIn (req, res, next){
+  if (req.user) {
+      next();
+  } else {
+      res.sendStatus(401);
+  }
+}
+
+app.get('/failed', (req, res) => res.send('You Failed to log in!'))
+
+app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get('/google/callback', passport.authenticate('google', { 
+  failureRedirect: '/failed' ,
+  successRedirect: '/email'
+})  
+);
+app.get('/logout',(req,res) => {
+  req.logout();
+  delete req.session;
+  res.render('index');
+})
+//Express session 
 app.use(
-    session({
-      secret: 'secret',
-      resave: true,
-      saveUninitialized: true
-    })
-  );
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
 
   // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
 
   // Connect flash
 app.use(flash());
@@ -89,7 +120,7 @@ app.get('/email/new',(req,res)=>{
     res.render('email/new')
 })
 
-app.post('/email',async(req,res)=>{
+app.post('/email', isLoggedIn ,async(req,res)=>{
     const newEmail = await Email(req.body)
     newEmail.save()
     // res.send(newEmail)

@@ -11,7 +11,7 @@ router.get('/login', (req,res) => res.render('login'));
 
 //SIGNUP PAGE
 router.get('/signup', (req,res) => res.render('signup'));
-module.exports = router;
+
 
 //SIGNUP handle
 
@@ -68,7 +68,7 @@ router.post('/signup', (req, res) => {
                     'success_msg',
                     'You are now registered and can log in'
                   );
-                  res.redirect('/email');
+                  res.redirect('/user/login');
                 })
                 .catch(err => console.log(err));
             });
@@ -82,7 +82,7 @@ router.post('/signup', (req, res) => {
   router.post('/login', (req, res, next) => {
     passport.authenticate('local', {
       successRedirect: '/email',
-      failureRedirect: '/login',
+      failureRedirect: '/user/login',
       failureFlash: true
     })(req, res, next);
   });
@@ -93,3 +93,4 @@ router.post('/signup', (req, res) => {
     req.flash('success_msg', 'You are logged out');
     res.redirect('/login');
   });
+  module.exports = router;
