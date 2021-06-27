@@ -111,7 +111,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(methodOveride('_method'))
 
 
-app.get('/email',async(req,res)=>{
+app.get('/email', isLoggedIn ,async(req,res)=>{
     const emails = await Email.find({})
     res.render('email/index',{emails})
 })
@@ -120,7 +120,7 @@ app.get('/email/new',(req,res)=>{
     res.render('email/new')
 })
 
-app.post('/email', isLoggedIn ,async(req,res)=>{
+app.post('/email' ,async(req,res)=>{
     const newEmail = await Email(req.body)
     newEmail.save()
     // res.send(newEmail)
