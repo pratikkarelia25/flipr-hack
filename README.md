@@ -1,5 +1,7 @@
 # MailFicient
-Flipr-9.0 Hackathon Project
+<b>Flipr-9.0 Hackathon Project</b><br>
+This is a full-stack web application built to enable users to login and send recurring mails
+to the recipients.
 
 ## Table Of Contents
 - [Tech-Stack Components](#tech-stack-components)
@@ -21,12 +23,17 @@ Flipr-9.0 Hackathon Project
 To view this project follow these guideline:
 
 ```
-1.Fork this Repository
+Fork this Repository
+```
+Run the following in your terminal:
+```
+ $ git clone https://github.com/pratikkarelia25/flipr-hack.git
 ```
 ```
-2.Clone the repository into a folder on your machine
-  git clone https://github.com/pratikkarelia25/flipr-hack.git
+ $ node app.js
 ```
+In your browser  URL type localhost:3000
+
 
 ## Authors
 - [Pratik Karelia](https://github.com/pratikkarelia25)
