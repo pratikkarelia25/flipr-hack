@@ -5,7 +5,7 @@
         <h1 class="text-center mb-3">
           <i class="fas fa-user-plus"></i> Register
         </h1>
-        
+        <% include ('./partials/messages') %>
         <form action="/user/signup" method="POST">
           <div class="form-group">
             <label for="name">Name</label>
@@ -51,11 +51,31 @@
               value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
             />
           </div>
-          <button type="submit" class="btn btn-primary btn-block">
-            Register
+          <button type="submit"  class="btn btn-primary btn-block">
+            Sign Up
           </button>
         </form>
-        <p class="lead mt-4">Have An Account? <a href="/user/login">Login</a></p>
+        <p class="lead mt-4">Have An Account? <a href="/login">Login</a></p>
+        <hr color="black">
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <a class="btn btn-outline-dark" href="/google" role="button" style="text-transform:none">
+              <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+              Sign Up with Google
+            </a>
+          </div>
+        </div>
+        
+        <!-- Minified CSS and JS -->
+        <link   rel="stylesheet" 
+                href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+                integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+                crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+                crossorigin="anonymous">
+        </script>
       </div>
     </div>
   </div>

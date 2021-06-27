@@ -1,27 +1,17 @@
 //Imports & initialisation
 const express = require('express');
-// const expresslayout = require('express-ejs-layouts');
+const expresslayout = require('express-ejs-layouts');
 const mongoose = require('mongoose');
-const app = express();
-const port = 3000;
-const path = require('path')
-require('dotenv').config()
-const {MongoClient} = require('mongodb')
-const methodOveride = require('method-override')
-const Email = require('./model/mail');
-const { urlencoded } = require('express');
-const dbUrl = process.env.dB_URL
-const url =  dbUrl || 'mongodb://localhost:27017/Email';
+const passport = require('passport');
+const flash = require('connect-flash');
+const session = require('express-session');
 
-mongoose.connect(url, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
-    useCreateIndex:true
-});
-const db = mongoose.connection;
-db.on("error", console.error.bind(console,"connection error"));
-db.once("open",()=>{
-    console.log("Database Connected")
+const app = express();
+
+
+
+const port = 3000;
+require('dotenv').config();
 
 // Accessing all files
 app.use(express.static('public'));
@@ -33,25 +23,95 @@ app.use('/img',express.static(__dirname + 'public/img'));
 
 // ######################    LOGIN     #######################################
 
+// Passport Config
+require('./model/passport')(passport);
+  // Passport middleware
+  app.use(passport.initialize());
+  app.use(passport.session());
 //EJS
-// app.use(expresslayout);
+app.use(expresslayout);
 app.set('view engine','ejs');
 app.use(express.urlencoded({extended: false}));
+
+// Auth middleware that checks if the user is logged in
+function isLoggedIn (req, res, next){
+  if (req.user) {
+      next();
+  } else {
+      res.sendStatus(401);
+  }
+}
+
+app.get('/failed', (req, res) => res.send('You Failed to log in!'))
+
+app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get('/google/callback', passport.authenticate('google', { 
+  failureRedirect: '/failed' ,
+  successRedirect: '/email'
+})  
+);
+app.get('/logout',(req,res) => {
+  req.logout();
+  delete req.session;
+  res.render('index');
+})
+//Express session 
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+  // Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+  // Connect flash
+app.use(flash());
+
+// Global variables
+app.use(function(req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+  });
 
 //routes
 app.use('/', require('./routes/initial'));
 app.use('/user', require('./routes/user'));
 
+//DB config
+const dbUrl = process.env.dB_URL
+const url =  dbUrl || 'mongodb://localhost:27017/Email';
+
+mongoose.connect(url, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    useCreateIndex:true
+});
+const db = mongoose.connection;
+db.on("error", console.error.bind(console,"connection error"));
+db.once("open",()=>{
+    console.log("Database Connected")});
+
+
 // ######################    EMAIL     #######################################
+const path = require('path')
+const methodOveride = require('method-override')
+const Email = require('./model/mail');
+const { urlencoded } = require('express');
 
-
-})
 
 app.use(express.urlencoded({extended:true}))
 app.use(methodOveride('_method'))
 
 
-app.get('/email',async(req,res)=>{
+app.get('/email', isLoggedIn ,async(req,res)=>{
     const emails = await Email.find({})
     res.render('email/index',{emails})
 })
@@ -60,7 +120,7 @@ app.get('/email/new',(req,res)=>{
     res.render('email/new')
 })
 
-app.post('/email',async(req,res)=>{
+app.post('/email' ,async(req,res)=>{
     const newEmail = await Email(req.body)
     newEmail.save()
     // res.send(newEmail)
@@ -93,6 +153,6 @@ app.delete('/email/:id',async(req,res)=>{
 })
 
 //Listen to port 3000
-app.listen(port,() => {
-    console.log(`Listening on port ${port}`)
-});
+app.listen(port ,() => {
+    console.log(`Listening to port ${port}`);
+})
