@@ -44,10 +44,10 @@ passport.use(new GoogleStrategy({
   passReqToCallback:true
   
 },
-function(request, accessToken, refreshToken, user, done) {
-  User.findOrCreate({googleId: profile.id}, function(err,user){
-  return done(null, user);
-});
+function(request, accessToken, refreshToken, profile, done) {
+    console.log(profile.id);
+    return done(null, profile);
+  
 }
 ));
 passport.serializeUser(function(user, done) {
@@ -56,12 +56,12 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
   User.findById(id, function(err, user) {
-    done(err, user);
+    done(null, user);
   });
 });
 };
 passport.serializeUser(function(profile, done) {
-  done(null, user.id);
+  done(null, profile.id);
 });
 
 
