@@ -7,6 +7,14 @@ const flash = require('connect-flash');
 const session = require('express-session');
 
 const app = express();
+//Express session 
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
 
 
 
@@ -25,9 +33,12 @@ app.use('/img',express.static(__dirname + 'public/img'));
 
 // Passport Config
 require('./model/passport')(passport);
+
   // Passport middleware
   app.use(passport.initialize());
   app.use(passport.session());
+  
+
 //EJS
 app.use(expresslayout);
 app.set('view engine','ejs');
@@ -54,20 +65,10 @@ app.get('/google/callback', passport.authenticate('google', {
 app.get('/logout',(req,res) => {
   req.logout();
   delete req.session;
-  res.render('index');
+  delete req.cookies;
+  res.redirect('/');
 })
-//Express session 
-app.use(
-  session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-  })
-);
 
-  // Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
 
 
   // Connect flash
