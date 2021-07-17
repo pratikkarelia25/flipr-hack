@@ -1,13 +1,4 @@
-<<<<<<< main
-# flipr-hack
-Flipr-9.0
-test 
-# Authors
-- Pratik Karelia
-- Jaina Vaishnav
-- Aradhana Sridhar
-- Shashwatha Karkera
-=======
+
 # MailFicient
 <b>Flipr-9.0 Hackathon Project</b><br>
 This is a full-stack web application built to enable users to login and send recurring mails
@@ -50,5 +41,4 @@ In your browser  URL type localhost:3000
 - [Jaina Vaishnav](https://github.com/JAINA2001)
 - [Aradhana Sridhar](https://github.com/AraSridhar)
 - [Shashwatha Karkera](https://github.com/shashwatha411)
->>>>>>> main
 
