@@ -1,3 +1,42 @@
 body{
-    background-color: black;
+    background-color:#201F1F;
+}
+body p{
+position: absolute;
+width: 650px;
+height: 103px;
+left: calc(50% - 650px/2);
+top: calc(60% - 103px/2 - 377.5px);
+font-style: normal;
+font-weight: normal;
+font-size: 48px;
+line-height: 144px;
+text-align: center;
+
+color: #FFFFFF;
+}
+
+body .tri{
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+	width: 500px;
+	height: 300px;
+    position: absolute;
+    left: 32.26%;
+    right: 32.08%;
+    top: 29.17%;
+    bottom: 20%;
+
+background: #C4C4C4;
+border-radius: 37px;
+transform: rotate(-180deg);
+}
+body .rec{
+    position: absolute;
+left: 32.26%;
+right: 32.08%;
+top: 49.17%;
+bottom: 20%;
+
+background: #000000;
+mix-blend-mode: overlay;
 }
