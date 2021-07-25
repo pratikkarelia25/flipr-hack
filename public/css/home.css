@@ -1,42 +1,63 @@
 body{
     background-color:#201F1F;
 }
-body p{
-position: absolute;
-width: 650px;
-height: 103px;
-left: calc(50% - 650px/2);
-top: calc(60% - 103px/2 - 377.5px);
-font-style: normal;
-font-weight: normal;
-font-size: 48px;
-line-height: 144px;
-text-align: center;
-
-color: #FFFFFF;
+.title{
+    height: 77px;
+    width: 377px;
+    margin-left: 400px;
+    margin-top: 50px;
+}
+h1{
+    font-family: Reem Kufi;
+    font-size: 48px;
+    color: #FFFFFF;
+    
 }
 
-body .tri{
-    clip-path: polygon(50% 0, 100% 100%, 0 100%);
-	width: 500px;
-	height: 300px;
-    position: absolute;
-    left: 32.26%;
-    right: 32.08%;
-    top: 29.17%;
-    bottom: 20%;
-
-background: #C4C4C4;
-border-radius: 37px;
-transform: rotate(-180deg);
+ .logo{
+    height: 411px;
+    width: 566px;
+    margin-left: 290px;
+    margin-right: 390px;
+    margin-top: 20px;
+    
 }
-body .rec{
+  .tri{
+    height: 240px;
+    width: 400px;
+    margin-left: 60px;
+    border-radius: 37px;
+    margin-top: 50px;
     position: absolute;
-left: 32.26%;
-right: 32.08%;
-top: 49.17%;
-bottom: 20%;
+    clip-path: polygon(50% 0, 100% 100%, 100% 100%, 0 100%);
+    background: #C4C4C4;
+    transform: rotate(-180deg);
+    animation-name: move;
+    animation-duration: 3s;
+} 
+@keyframes move {
+    0%   { margin-top:0px;}
+    50%  { margin-top: 25px;}
+    100%  { margin-top:50px;}
+  }
+ .logo .rec{
+    height: 208px;
+    width: 310px;
+    position: absolute;
+    margin-left: 105px;
+    margin-top: 105px;
 
-background: #000000;
-mix-blend-mode: overlay;
+    background: #000000;
+    mix-blend-mode: overlay;
+    
+} 
+.button{
+    height: 80px;
+width: 300px;
+margin-left: 390px;
+border-radius: 30px;
+background: #E5E5E5;
+border: 7px solid #403E3E;
+box-sizing: border-box;
+font-family: Reem Kufi;
 }
