@@ -10,9 +10,11 @@ app.set('view engine','ejs');
 app.use(express.static('public'));
 app.use('/css',express.static(__dirname + 'public/css'));
 
-app.get('',(req,res)=> {
-    res.render('home')
-})
+var indexRouter = require('./routes/initial');
+var authRouter = require('./routes/auth');
+
+app.use('/', indexRouter);
+app.use('/auth', authRouter);
 
 //Listen
 app.listen(port,()=>{
