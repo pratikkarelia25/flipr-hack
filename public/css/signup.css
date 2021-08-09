@@ -1,0 +1,44 @@
+body{
+    background:#E5E5E5;
+}
+.myrow{
+    position: absolute;
+    width: 1316px;
+    height: 482px;
+    margin-left: 0px;
+    margin-top: 103px;
+}
+.left{
+    position: absolute;
+    width: 310px;
+    height: 482px;
+    margin-left: 0px;
+    background: #403E3E;
+}
+.form{
+    position: absolute;
+    width: 1004px;
+    height: 462px;
+    margin-left: 310px;
+    padding: 20px;
+}
+.names{
+    margin-bottom:0px;
+    text-align: center;
+    font-weight:bolder;
+    font-style:Reem Kufi;
+    font-size:24px;
+    color:#403E3E;
+}
+.mybox{
+    border-color: black;
+    border:2s0px;
+}
+.mylink{
+    text-decoration: underline;
+    color:#403E3E;
+}
+.mybtn{
+    margin-left:430px;
+    width:347px;
+}
