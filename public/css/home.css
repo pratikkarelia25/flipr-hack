@@ -1,0 +1,67 @@
+body{
+    background-color:#201F1F;
+}
+.title{
+    height: 77px;
+    width: 377px;
+    margin-left: 400px;
+    margin-top: 50px;
+}
+h1{
+    font-family: Reem Kufi;
+    font-size: 48px;
+    color: #FFFFFF;  
+}
+ .logo{
+    height: 311px;
+    width: 566px;
+    margin-left: 290px;
+    margin-right: 390px;
+    margin-top: 15px;
+    
+}
+  .tri{
+    height: 240px;
+    width: 400px;
+    margin-left: 60px;
+    margin-top: 50px;
+    position: absolute;
+    clip-path: polygon(50% 0, 100% 100%, 100% 100%, 0 100%);
+    background: #C4C4C4;
+    transform: rotate(-180deg);
+    animation-name: move;
+    animation-duration: 3s;
+} 
+@keyframes move {
+    0%   { margin-top:0px;}
+    50%  { margin-top: 25px;}
+    100%  { margin-top:40px;}
+  }
+ .logo .rec{
+    height: 208px;
+    width: 310px;
+    position: absolute;
+    margin-left: 105px;
+    margin-top: 105px;
+    border-radius:37px;
+    background: #000000;
+    mix-blend-mode: overlay;
+    
+} 
+.slogan{
+    margin: 40px 250px 30px 350px;
+    color: #e5e5e59f;
+}
+.button{
+    color:black;
+    text-decoration: none;
+    height: 60px;
+    width: 220px;
+    text-align: center;
+    margin-left: 435px;
+    border-radius: 30px;
+    background: #E5E5E5;
+    border: 5px solid #403E3E;
+    box-sizing: border-box;
+    font-family: Reem Kufi;
+}
