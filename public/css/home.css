@@ -55,9 +55,10 @@ h1{
 .button{
     color:black;
     text-decoration: none;
-    height: 180px;
-    width: 500px;
-    margin-left: 425px;
+    height: 60px;
+    width: 220px;
+    text-align: center;
+    margin-left: 435px;
     border-radius: 30px;
     background: #E5E5E5;
     border: 5px solid #403E3E;
