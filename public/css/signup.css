@@ -10,16 +10,51 @@ body{
 }
 .left{
     position: absolute;
-    width: 310px;
+    width: 370px;
     height: 482px;
     margin-left: 0px;
     background: #403E3E;
 }
+.tri{
+    height: 310px;
+    width: 628px;
+    margin-left: 56px;
+    margin-top: 70px;
+    position: absolute;
+    clip-path: polygon(50% 0, 100% 100%, 100% 100%, 50% 100%);
+    background: #C4C4C4;
+    transform: rotate(-180deg);
+}
+.rec{
+    height: 220px;
+    width: 170px;
+    position: absolute;
+    margin-left: 200px;
+    margin-top: 210px;
+    border-radius:20px 0px 0px 20px;
+    background: #000000;
+    mix-blend-mode: overlay;
+    
+} 
+.text{
+    margin-top:290px;
+    transform: rotate(-90deg);
+    font-family: Reem Kufi;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 45px;
+    letter-spacing: 0em;
+    text-align: center;
+    color:white;
+
+}
 .form{
     position: absolute;
-    width: 1004px;
+    width: 900px;
     height: 462px;
-    margin-left: 310px;
+    margin-left: 410px;
+    margin-top:-20px;
     padding: 20px;
 }
 .names{
@@ -33,6 +68,7 @@ body{
 .mybox{
     border-color: black;
     border:2s0px;
+    border-radius: 30px;
 }
 .mylink{
     text-decoration: underline;
