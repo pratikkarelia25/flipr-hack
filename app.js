@@ -6,6 +6,7 @@ const email = require('./model/mail');
 const mailRouter = require('./routes/mail');
 const path = require('path');
 const ejsMate = require('ejs-mate');
+const methodOverride = require('method-override');
 
 const port = 4000;
 mongoose.connect('mongodb://localhost:27017/mailficient', {
@@ -20,6 +21,7 @@ app.set('view engine','ejs');
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'));
 app.use('/css',express.static(__dirname + 'public/css'));
+app.use(methodOverride('_method'))
 
 var indexRouter = require('./routes/initial');
 var authRouter = require('./routes/auth');
