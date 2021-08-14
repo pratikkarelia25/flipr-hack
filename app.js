@@ -5,20 +5,19 @@ const mongoose = require('mongoose');
 const email = require('./model/mail');
 const mailRouter = require('./routes/mail');
 const path = require('path');
-const ejsMate = require('ejs-mate')
+const ejsMate = require('ejs-mate');
 
 const port = 4000;
-
-// database
 mongoose.connect('mongodb://localhost:27017/mailficient', {
     useNewUrlParser: true, 
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex:true
 });
 //set views
 app.engine('ejs',ejsMate)
 app.set('views',path.join(__dirname,"views"))
 app.set('view engine','ejs');
-
+app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'));
 app.use('/css',express.static(__dirname + 'public/css'));
 

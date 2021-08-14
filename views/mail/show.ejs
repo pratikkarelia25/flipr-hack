@@ -8,5 +8,8 @@
 </head>
 <body>
     <h1>ALL MAILS</h1>
+    <% for(let email of emails){ %>
+        <li>To: <%= email.to %> </li>
+    <% } %>  
 </body>
 </html>

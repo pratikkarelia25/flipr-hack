@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New</title>
+</head>
+<body>
+    <form action="/mail" method="POST">
+        <div>
+            <label for="to">To:</label>
+            <input type="text" id="to" name="emails[to]" placeholder="To">
+        </div>
+        <div>
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="emails[subject]" placeholder="Subject">
+        </div>
+        <div>
+            <label for="body">Body</label>
+            <textarea name="emails[body]" id="body" cols="30" rows="10"></textarea>
+        </div>
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
