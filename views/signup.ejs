@@ -25,7 +25,7 @@
                 <hr color="#403E3E">
             </div>
             <div class="myform">
-            <form>
+            <form id="reg-form">
                 <div class="form-group row">
                     <label for="name" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
@@ -41,7 +41,7 @@
                 <div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                      <input type="email" class="form-control mybox" id="inputPassword" placeholder="eg. john123@gmail.com">
+                      <input type="email" class="form-control mybox" id="email" placeholder="eg. john123@gmail.com">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -58,12 +58,42 @@
                 </div>
                
                 <a class="mylink" href="/auth/login">Already have an account?</a>
-                <a class="btn btn-dark mybtn" href="#" role="button">Signup</a>
+                <input type="submit" value="submit"/>
+                <!-- <a class="btn btn-dark mybtn" href="#" type="submit" role="button">Signup</a> -->
               </form>
             </div>
         </div>
     </div>
+    <script>
+      const form = document.getElementById('reg-form');
+      form.addEventListener('submit',registerUser);
 
+      async function registerUser(event){
+        //prevent any default actions of the form such as auto refresh
+        event.preventDefault();
+        //get all form detals
+        const name = document.getElementById('name').value;
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const password2 = document.getElementById('password2').value;
+
+        const result = await fetch('/auth/api/register',{
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name,
+            username,
+            email,
+            password,
+            password2
+          })
+        }).then((res) => res.json)
+        console.log(result);
+      }
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
