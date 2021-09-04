@@ -3,6 +3,7 @@ const express = require('express');
 const ejs = require('ejs');
 const app = express();
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 // //Schemas & objects
 // const User = require('./model/user');
@@ -15,16 +16,20 @@ const methodOverride = require('method-override');
 const port = 4000;
 
 //******************************   DB CONNECT    *****************************************
-const connection = async() => {
-mongoose.connect('mongodb://localhost:27017/MAILFICIENT', {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
+const DB_URI = process.env.DB_URL;
+mongoose.connect(DB_URI,{
+    useNewUrlParser :true,
+    useUnifiedTopology:true,
     useCreateIndex:true
-});
-connection.connection.on('connected',function(){
-    console.log("Connection open");
 })
-};
+//listen after database has been connected
+.then((result)=>{ console.log("db connected"), app.listen(port,()=>{
+    console.log(`Listening on port ${port}`);
+})})
+.catch((err)=> console.log(err))
+;
+
+
 
 // ******************************   SET VIEWS  *****************************************
 app.engine('ejs',ejsMate)
@@ -45,7 +50,3 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/mail', mailRouter)
 
-//******************************   LISTEN  *****************************************
-app.listen(port,()=>{
-    console.log(`Listening on port ${port}`);
-})

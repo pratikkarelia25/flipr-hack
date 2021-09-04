@@ -9,12 +9,19 @@ router.get('/login',(req,res)=> res.render('login'));
 router.get('/dashboard',(req,res)=> res.render('dashboard'));
 
 router.use(bodyParser.json())
+
+
+// **********************  Handle errors *********************
+const handleErrors = (err) => {
+    console.log(err.message,err.code);
+}
+
+// ***********************************************************
 router.post('/api/register', async (req,res) => {
     
 
     const {name,username,email,password:PlainTextPassword} = req.body;
-    const password = await bcrypt.hash(PlainTextPassword,2);
-    console.log(req.body)
+    const password = await bcrypt.hash(PlainTextPassword,5);
 
     try{
         await User.create({
@@ -23,9 +30,9 @@ router.post('/api/register', async (req,res) => {
             email,
             password
         }),
-        console.log('User created')
+        console.log('User'+ name + 'created');
     }catch(error){
-        console.log(error);
+        handleErrors(error)
         return res.json({status: 'error'})
     }
     res.json({status:'ok'})
