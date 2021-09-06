@@ -3,7 +3,8 @@ const express = require('express');
 const ejs = require('ejs');
 const app = express();
 const mongoose = require('mongoose');
-require('dotenv').config();
+const cookieParser = require('cookie-parser');
+
 
 // //Schemas & objects
 // const User = require('./model/user');
@@ -14,22 +15,20 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 
 const port = 4000;
-
+app.use(cookieParser())
 //******************************   DB CONNECT    *****************************************
-const DB_URI = process.env.DB_URL;
-mongoose.connect(DB_URI,{
+require('dotenv').config();
+
+mongoose.connect('mongodb+srv://shashwatha:mailficient_1234@mailficient.o2cdk.mongodb.net/mailficient?retryWrites=true&w=majority',{
     useNewUrlParser :true,
     useUnifiedTopology:true,
     useCreateIndex:true
 })
 //listen after database has been connected
-.then((result)=>{ console.log("db connected"), app.listen(port,()=>{
+.then((result)=>{ console.log("db connect"), app.listen(port,()=>{
     console.log(`Listening on port ${port}`);
 })})
-.catch((err)=> console.log(err))
-;
-
-
+.catch((err)=> console.log(err));
 
 // ******************************   SET VIEWS  *****************************************
 app.engine('ejs',ejsMate)
