@@ -16,10 +16,11 @@ const methodOverride = require('method-override');
 
 const port = 4000;
 app.use(cookieParser())
+
 //******************************   DB CONNECT    *****************************************
 require('dotenv').config();
 
-mongoose.connect('mongodb+srv://shashwatha:mailficient_1234@mailficient.o2cdk.mongodb.net/mailficient?retryWrites=true&w=majority',{
+mongoose.connect('mongodb+srv://shashwatha:mailficient_1234@mailficient.o2cdk.mongodb.net/mailficient',{
     useNewUrlParser :true,
     useUnifiedTopology:true,
     useCreateIndex:true
@@ -38,6 +39,19 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'));
 app.use('/css',express.static(__dirname + 'public/css'));
 app.use(methodOverride('_method'))
+
+// ******************************   COOKIES  *****************************************
+
+app.get('/set-cookies',(req,res) =>{
+    // res.setHeader('Set-Cookie', 'newUser=true');
+    res.cookie('newUser', false);
+    res.send('got cookies!');
+});
+app.get('/read-cookies', (req,res) =>{
+    const cookies = req.cookies;
+    console.log(cookies);
+    res.json(cookies);
+});
 
 //******************************   ROUTERS  *****************************************
 var indexRouter = require('./routes/initial');
