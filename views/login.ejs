@@ -30,6 +30,7 @@
                   <label for="username" class="col-sm-2 col-form-label">Username</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control mybox" id="username" placeholder="Enter your user name">
+                    <div class="username error"></div>
                   </div>
               </div>
                 
@@ -37,6 +38,7 @@
                     <label for="password" class="col-sm-2 col-form-label">Password</label>
                     <div class="col-sm-10">
                       <input type="password" class="form-control mybox" id="password" placeholder="Password">
+                      <div class="password error"></div>
                     </div>
                   </div>
                 
@@ -48,27 +50,48 @@
     </div>
     <script>
       const form = document.getElementById('log-form');
+      // show errors on frontend
+      const usernameError = document.querySelector('.username.error');
+      const passwordError = document.querySelector('.password.error');
+     
       form.addEventListener('submit',logUser);
 
-      function logUser(event){
-        //prevent any default actions of the form such as auto refresh
+      async function logUser(event){
         event.preventDefault();
+
+        // reset errors
+        usernameError.textContent = '';
+        passwordError.textContent = '';
+
         //get all form detals
-        
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        // const result = await fetch('/auth/api/login',{
-        //   method:"POST",
-        //   headers:{
-        //     'Content-Type': 'application/json'
-        //   },
-        //   body: JSON.stringify({
-        //     username,
-        //     password
-        //   })
-        // }).then((res) => res.json)
-        console.log(username,password);
+      try{  
+        const result = await fetch('/auth/api/login',{
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username,
+            password
+          })
+        });
+        const data = await result.json();
+        console.log(data);
+
+        if(data.error){
+            usernameError.textContent = data.error.username;
+            passwordError.textContent = data.error.password;
+        }
+        if(data.user){
+          location.assign('/auth/dashboard')
+        }
+      }
+        catch(err){
+          console.log(err);
+        }
       }
     </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -15,7 +15,6 @@ const UserSchema = new mongoose.Schema(
     },
     email :{
         type : String,
-        unique:true,
         required: [ true,'Please enter your email'],
         validate: [isEmail, 'Please enter a valid e-mail']
     },
@@ -41,6 +40,21 @@ UserSchema.pre('save', async function(next){
     this.password = await bcrypt.hash(this.password, salt);
     next();
 })
+
+// static login
+UserSchema.statics.login = async function(username, password){
+    const user = await this.findOne({ username });
+    if(user){
+        const auth = await bcrypt.compare(password, user.password);
+        if(auth){
+            return user;
+        }
+        throw Error('Incorrect Password');
+    }
+    throw Error('Incorrect Username');
+}
+
+
 // user == singular of the collection name == users
 const model = mongoose.model('user',UserSchema);
 

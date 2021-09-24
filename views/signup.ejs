@@ -20,9 +20,9 @@
         <div class="form">
             <div class="names">
                 SIGNUP
-                <hr color="#403E3E">
+                <!-- <hr color="#403E3E">
                 <a class="btn btn-dark " href="#" role="button">Signup with Google</a>
-                <hr color="#403E3E">
+                <hr color="#403E3E"> -->
             </div>
             <div class="myform">
             <form id="reg-form">
@@ -30,24 +30,28 @@
                     <label for="name" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
                       <input type="text" class="form-control mybox" id="name" placeholder="Enter your full name">
+                      <div class="name error"></div>
                     </div>
                 </div>
                 <div class="form-group row">
                   <label for="username" class="col-sm-2 col-form-label">Username</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control mybox" id="username" placeholder="Enter a user name of your choice">
+                    <div class="username error"></div>
                   </div>
               </div>
                 <div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
                       <input type="email" class="form-control mybox" id="email" placeholder="eg. john123@gmail.com">
+                      <div class="email error"></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="pass_word" class="col-sm-2 col-form-label">Password</label>
                     <div class="col-sm-10">
                       <input type="password" class="form-control mybox" id="pass_word" placeholder="Password">
+                      <div class="password error"></div>
                     </div>
                   </div>
                
@@ -60,11 +64,24 @@
     </div>
     <script>
       const form = document.getElementById('reg-form');
+      // show errors on frontend
+      const nameError = document.querySelector('.name.error');
+      const usernameError = document.querySelector('.username.error');
+      const emailError = document.querySelector('.email.error');
+      const passwordError = document.querySelector('.password.error');
+      
       form.addEventListener('submit',registerUser);
 
       async function registerUser(event){
         //prevent any default actions of the form such as auto refresh
         event.preventDefault();
+
+        // reset errors
+        nameError.textContent = '';
+        usernameError.textContent = '';
+        emailError.textContent = '';
+        passwordError.textContent = '';
+
         //get all form detals
         const name = document.getElementById('name').value;
         const username = document.getElementById('username').value;
@@ -84,14 +101,22 @@
             password
           })
         });
-        const data = await res.json();
+        const data = await result.json();
         console.log(data);
-        
+
+        if(data.error){
+            nameError.textContent = data.error.name;
+            usernameError.textContent = data.error.username;
+            emailError.textContent = data.error.email;
+            passwordError.textContent = data.error.password;
+        }
+        if(data.user){
+          location.assign('/auth/dashboard')
+        }
       }
         catch(err){
           console.log(err);
         }
-        
       }
     </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
