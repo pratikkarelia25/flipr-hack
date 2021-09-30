@@ -1,3 +1,13 @@
 body{
     background-color: #e5e5e59f;
 }
+nav a{
+    float:right;
+}
+.heading{
+    font-family:Grechen Fuemen;
+    font-size:100px;
+    font-weight:bold;
+    margin-left:450px;
+    
+}

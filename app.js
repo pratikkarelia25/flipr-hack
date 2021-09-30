@@ -5,7 +5,6 @@ const app = express();
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
-
 // //Schemas & objects
 // const User = require('./model/user');
 // const email = require('./model/mail');
