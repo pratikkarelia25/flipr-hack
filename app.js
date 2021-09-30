@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
+
 // //Schemas & objects
 // const User = require('./model/user');
 // const email = require('./model/mail');
@@ -55,10 +56,12 @@ app.get('/read-cookies', (req,res) =>{
 //******************************   ROUTERS  *****************************************
 var indexRouter = require('./routes/initial');
 var authRouter = require('./routes/auth');
+var sendMail = require('./routes/sendmail');
 const mailRouter = require('./routes/mail');
 
 //******************************   ROUTES  *****************************************
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/sendemail', sendMail);
 app.use('/mail', mailRouter)
 

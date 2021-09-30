@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>New</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+    <form id="mailform">
+        <div>
+            <label for="to">To:</label>
+            <input type="text" id="to" name="emails[to]" placeholder="To">
+        </div>
+        <div>
+            <label for="from">From:</label>
+            <input type="text" id="from" name="emails[from]" placeholder="From">
+        </div>
+        <div>
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="emails[subject]" placeholder="Subject">
+        </div>
+        <div>
+            <label for="body">Body</label>
+            <textarea name="emails[body]" id="body" cols="30" rows="10"></textarea>
+        </div>
+        <input class="btn btn-dark" type="submit" value="Send">
+    </form>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    const form = document.getElementById('mailform');
+    form.addEventListener('submit',sendMail);
+
+    function sendMail(event){
+        event.preventDefault();
+
+        const to = document.getElementById('to').value;
+        const from = document.getElementById('from').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('body').value;
+
+        const data = {
+            to,
+            from,
+            subject,
+            message
+        };
+
+        $.post('/sendemail/email',data, function(){
+            console.log('server received data');
+        });
+
+    }
+</script>
+</html>
