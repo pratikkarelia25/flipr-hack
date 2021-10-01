@@ -21,6 +21,7 @@ mongoose.connect('mongodb://localhost:27017/MAILFICIENT', {
     useUnifiedTopology: true,
     useCreateIndex:true
 });
+
 connection.connection.on('connected',function(){
     console.log("Connection open");
 })
