@@ -51,14 +51,14 @@ body{
 }
 .form{
     position: absolute;
-    width: 900px;
+    width: 600px;
     height: 462px;
-    margin-left: 410px;
+    margin-left: 510px;
     margin-top:-20px;
     padding: 20px;
 }
 .names{
-    margin-bottom:0px;
+    padding:15px 5px 30px 5px;
     text-align: center;
     font-weight:bolder;
     font-style:Reem Kufi;
@@ -70,11 +70,24 @@ body{
     border:2s0px;
     border-radius: 30px;
 }
+.error{
+    color: red;
+    margin: 10px 2px;
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+.bottom{
+    padding:15px;
+    margin:auto;
+}
 .mylink{
     text-decoration: underline;
     color:#403E3E;
 }
 .mybtn{
-    margin-left:430px;
+    margin-top:55px;
     width:347px;
+    background-color: black;
+    position:absolute;
+    color:white;
 }
